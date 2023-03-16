@@ -1,0 +1,128 @@
+
+{% extends 'blog/base.html' %}
+
+{% block a %}posts{% endblock %}
+
+{% block b%}
+<style>
+
+  .post-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .post {
+    width: calc(100% - 10px);
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .profile-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  float: left;
+  margin-right: 10px;
+  }
+
+  .profile-picture img {
+  width: 100%;
+  }
+
+  a {
+  color: #007bff; /* Sets the link color to blue */
+  text-decoration: none; /* Removes the default underline */
+  }
+
+  a:hover {
+  text-decoration: underline; /* Underlines the link on hover */
+  }
+  /* Pagination Styles */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .pagination a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #fff;
+    color: #007bff;
+    border-radius: 5px;
+    border: 1px solid #007bff;
+  }
+  .pagination a:hover {
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+  }
+  .pagination .current-page {
+  background-color: yellow;
+  }
+  .pagination .active {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+
+
+
+
+</style>
+
+<div class="post-container">
+    <h2>post by {{view.kwargs.username}} ({{page_obj.paginator.count}})</h2>
+  {% for post in posts %}
+    <div class="post">
+      <div class="profile-picture">
+        <img src="{{post.author.profile.image.url}}" alt="Profile Picture">
+      </div>
+      <a class="a" href="#">
+        <a href="{% url 'detail' post.id %}"><h2 class="title">{{ post.title }}</h2></a>
+      </a>
+
+      <div class="meta">
+        <div class="author">
+          <span class="author-icon">🧔</span> <b>{{ post.author }}</b>
+        </div>
+        <div class="date">{{ post.date }}</div>
+      </div>
+      <div class="content">
+        <p>{{ post.content }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% if is_paginated %}
+   <div class="pagination">
+
+   {% if page_obj.has_previous %}
+      <a href="?page=1">First</a>
+      <a href="?page={{page_obj.previous_page_number}}">Previous</a>
+   {% endif %}
+
+   {% for num in page_obj.paginator.page_range %}
+       {% if page_obj.number == num %}
+           <a class="current-page" href="?page={{num}}">{{num}}</a>
+       {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a href="?page={{num}}">{{num}}</a>
+       {% endif %}
+   {% endfor %}
+
+   {% if page_obj.has_next %}
+      <a href="?page={{page_obj.next_page_number}}">Next</a>
+      <a href="?page={{page_obj.paginator.num_pages}}">Last</a>
+   {% endif %}
+
+{% endif %}
+   </div>
+
+
+
+
+{% endblock %}

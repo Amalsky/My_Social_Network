@@ -1,0 +1,36 @@
+.post {
+  width: 50%;
+  margin: 1em auto;
+  padding: 1em;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+}
+
+.author-icon {
+  font-size: 1.2em;
+  margin-right: 0.5em;
+}
+
+.date {
+  font-style: italic;
+}
+
+.content {
+  font-size: 1.2em;
+  line-height: 1.5;
+}

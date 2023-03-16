@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/Main.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/nav.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/post.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/button.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/author.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/aligment.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'user/profile.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'user/crispy_forms.css' %}">
+  <link rel="shortcut icon" type="image/png" href="{% static 'blog/msn.jpg' %}">
+  <link rel="shortcut icon" type="image/png" href="{% static 'blog/Paginator.css' %}">
+
+
+
+
+
+  <title>{% block a %}{% endblock %}</title>
+    <style>
+    body {
+  background: linear-gradient(to right, #f2994a, #f2c94c);
+}
+  </style>
+
+  <div class="header">
+  <h1>My Social Network</h1>
+  <nav>
+       <b><a href="{% url 'home'%}">Home</a> |</b>
+        <b><a href="{% url 'profile' %}">Profile</a> |</b>
+        <b><a href="{% url 'new'  %}">New Post</a></b>
+
+  </nav>
+{% if user.is_authenticated %}
+    <a href="{% url 'logout' %}">
+              <input type="submit" value="Logout">
+    </a>
+{% else %}
+     <a href="{% url 'login' %}">
+                  <input type="submit" value="Login">
+        </a>
+{% endif %}
+</div>
+</head>
+
+ <body>
+      <div class="container">
+        <div class="header">
+
+
+        </div>
+        <div class="post-form">
+         <form method="post" action="{% url 'new' %}"> <textarea name="content" placeholder="What's on your mind?"></textarea>
+          {% csrf_token %}
+          <input type="submit" value="Post">
+          </form>
+        </div>
+      {% if messages %}
+            {% for message in messages %}
+               <br>
+               <div class="success-message">{{ message }}</div>
+
+            {% endfor %}
+     {% endif %}
+
+    {% block b %}{% endblock %}
+
+</body>
+
+
+
+

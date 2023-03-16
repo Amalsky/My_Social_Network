@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block a %}Delete{% endblock %}
+
+
+{% block b %}
+<style>
+     /* styles.css */
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+
+</style>
+
+  <h1>Confirm Delete</h1>
+  <p>Are you sure you want to delete {{object.title}}?</p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Delete">
+    <a href="{% url 'detail' object.id %}" class="btn btn-primary">Cancel</a>
+  </form>
+{% endblock %}

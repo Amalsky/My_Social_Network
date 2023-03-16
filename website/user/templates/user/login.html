@@ -1,0 +1,56 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{%block a %}Login{% endblock %}
+
+{%block b%}
+<style>
+    .signup-text {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+    }
+
+    .signup-text a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .signup-text a:hover {
+      text-decoration: underline;
+    }
+
+    .forgot-password {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+      margin-top: 20px;
+    }
+
+    .forgot-password a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+</style>
+<form method="post">
+    {% csrf_token %}
+
+
+    {{ form|crispy }}
+
+
+    <input type="submit" value="Login">
+
+</form>
+
+<p class="signup-text">Don't have an account? <a href="{% url 'register' %}">Sign up here</a></p>
+<div class="forgot-password">
+    <a href="{% url 'password_reset' %}">Forgot password?</a>
+</div>
+
+{% endblock %}

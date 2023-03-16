@@ -1,0 +1,17 @@
+{%extends 'blog/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{%block a %}Sign Up{% endblock %}
+
+{%block b%}
+  <form method="post">
+       {%csrf_token%}
+       {{ form|crispy }}
+
+      <input type="submit" value="Sign up">
+
+  </form>
+{% endblock %}
+
+

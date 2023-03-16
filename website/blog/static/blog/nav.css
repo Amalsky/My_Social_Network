@@ -1,0 +1,14 @@
+.header nav {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.header nav a {
+  text-decoration: none;
+  color: black;
+  margin-right: 10px;
+}
+
+.header nav a:hover {
+  color: #3e8e41;
+}

@@ -1,0 +1,36 @@
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.post {
+  width: 500px;
+  background-color: lightgray;
+  margin: 20px;
+  padding: 20px;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.author {
+  font-size: 18px;
+}
+
+.date {
+  font-size: 18px;
+}
+
+.content {
+  font-size: 18px;
+  line-height: 1.5;
+}
