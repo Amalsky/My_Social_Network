@@ -1,127 +1,124 @@
-
 {% extends 'blog/base.html' %}
-
-{% block a %}home{% endblock %}
-
+{% load custom_filters %}
+ {% block a %}home{% endblock %} 
 {% block b%}
-<style>
-
-  .post-container {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .post {
-    width: calc(100% - 10px);
-    margin: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .profile-picture {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-  float: left;
-  margin-right: 10px;
-  }
-
-  .profile-picture img {
-  width: 100%;
-  }
-
-  a {
-  color: #007bff; /* Sets the link color to blue */
-  text-decoration: none; /* Removes the default underline */
-  }
-
-  a:hover {
-  text-decoration: underline; /* Underlines the link on hover */
-  }
-  /* Pagination Styles */
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  .pagination a {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 0 5px;
-    background-color: #fff;
-    color: #007bff;
-    border-radius: 5px;
-    border: 1px solid #007bff;
-  }
-  .pagination a:hover {
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-  }
-  .pagination .current-page {
-  background-color: yellow;
-  }
-  .pagination .active {
-    background-color: #007bff;
-    color: #fff;
-  }
 
 
 
-
-
-</style>
+<script>
+  function expandImage() {
+    var img = document.querySelector(".post-image");
+    img.classList.toggle("expanded");
+  }
+</script>
 
 <div class="post-container">
   {% for post in object_list %}
-    <div class="post">
-      <div class="profile-picture">
-        <img src="{{post.author.profile.image.url}}" alt="Profile Picture">
-      </div>
-      <a class="a" href="#">
-        <a href="{% url 'detail' post.id %}"><h2 class="title">{{ post.title }}</h2></a>
-      </a>
 
-      <div class="meta">
-        <div class="author">
-            <span class="author-icon">🧔</span> <b><a href="{% url 'user-post' post.author.username %}">{{ post.author }}</a></b>
-        </div>
-        <div class="date">{{ post.date }}</div>
-      </div>
-      <div class="content">
-        <p>{{ post.content }}</p>
-      </div>
+  <div class="post">
+    <div class="profile-picture">
+      <img src="{{post.author.profile.image.url}}" alt="Profile Picture" />
     </div>
+  {% comment %} {% if user.is_authenticated %}
+  {% if post.favourites.filter(id=user.id).exists %} {% endcomment %}
+  {% if not post|is_favorite:user and user.is_authenticated %} 
+        <a href="{%url 'favourite_add' post.id %}">
+          <button class="favorite-btn" onclick="toggleRed(this)""data-favorite="false">
+
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 20.25L11.4023 19.6807C6.61815 15.7083 3.375 13.2521 3.375 9.75002C3.375 6.43228 5.93228 3.875 9.25 3.875C11.0625 3.875 12.625 4.875 12.625 4.875C12.625 4.875 14.1875 3.875 16 3.875C19.3177 3.875 21.875 6.43228 21.875 9.75002C21.875 13.2521 18.6319 15.7083 13.8477 19.6807L13.25 20.25L12 21.5L10.75 20.25Z"
+                stroke="#FF0000"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </a>
+        {% endif %}
+      
+    <script>
+
+      function toggleRed(button) {
+        button.classList.toggle('red');
+      }
+      
+      // Usage:
+      // Get a reference to your button element
+      const myButton = document.getElementById('myButton');
+      
+      // Add a click event listener to the button
+      myButton.addEventListener('click', function() {
+        toggleRed(this);
+      });
+      
+      
+      
+    </script> 
+    <a class="a" href="#">
+      <a href="{% url 'detail' post.id %}"
+        ><h2 class="title">{{ post.title }}</h2></a
+      >
+    </a>
+
+    <div class="meta">
+      <div class="author">
+        <span class="author-icon">🧔</span>
+        <b
+          ><a href="{% url 'user-post' post.author.username %}">
+            {{post.author }}</a
+          ></b
+        >
+      </div>
+      <div class="date">{{ post.date }}</div>
+    </div>
+
+    <div style="position: relative; display: inline-block">
+      <img
+        src="{{post.post_image.url }}"
+        alt="Image description"
+        style="object-fit: cover; width: 600px; height: 300px"
+      />
+      <a
+        href="{{post.post_image.url}}"
+        class="expand-image"
+        onclick="expand()"
+        target="blank"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 586.09999 586.09996"
+        >
+          <path
+            fill="rgb(100, 100, 100)"
+            d="M172.6 367.9l-97.7 97.7L0 390.7v195.4h195.4l-74.9-74.9 97.7-97.7-45.6-45.6zM195.4 0H0v195.4l74.9-74.9 97.7 97.7 45.6-45.6-97.7-97.7L195.4 0zm195.3 0l74.9 74.9-97.7 97.7 45.6 45.6 97.7-97.7 74.9 74.9V0H390.7zm22.8 367.9l-45.6 45.6 97.7 97.7-74.9 74.9h195.4V390.7l-74.9 74.9-97.7-97.7z"
+          />
+        </svg>
+      </a>
+    </div>
+
+    <div class="content">
+      <p>{{ post.content }}</p>
+    </div>
+  </div>
   {% endfor %}
 </div>
 {% if is_paginated %}
-   <div class="pagination">
-
-   {% if page_obj.has_previous %}
-      <a href="?page=1">First</a>
-      <a href="?page={{page_obj.previous_page_number}}">Previous</a>
-   {% endif %}
-
-   {% for num in page_obj.paginator.page_range %}
-       {% if page_obj.number == num %}
-           <a class="current-page" href="?page={{num}}">{{num}}</a>
-       {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-              <a href="?page={{num}}">{{num}}</a>
-       {% endif %}
-   {% endfor %}
-
-   {% if page_obj.has_next %}
-      <a href="?page={{page_obj.next_page_number}}">Next</a>
-      <a href="?page={{page_obj.paginator.num_pages}}">Last</a>
-   {% endif %}
-
-{% endif %}
-   </div>
-
-
-
+<div class="pagination">
+  {% if page_obj.has_previous %}
+  <a href="?page=1">First</a>
+  <a href="?page={{page_obj.previous_page_number}}">Previous</a>
+  {% endif %} {% for num in page_obj.paginator.page_range %} 
+  {% if page_obj.number == num %}
+  
+  <a class="current-page" href="?page={{num}}">{{num}}</a>
+  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+  <a href="?page={{num}}">{{num}}</a>
+  {% endif %} {% endfor %} {% if page_obj.has_next %}
+  <a href="?page={{page_obj.next_page_number}}">Next</a>
+  <a href="?page={{page_obj.paginator.num_pages}}">Last</a>
+  {% endif %} {% endif %}
+</div>
 
 {% endblock %}

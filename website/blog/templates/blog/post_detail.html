@@ -1,95 +1,86 @@
-{% extends 'blog/base.html' %}
-
-{% block a %}home{% endblock %}
-
-{% block b%}
+{% extends 'blog/base.html' %} {% block a %}home{% endblock %} {% block b%}
 <style>
-.post-container {
-  display: flex;
-  flex-wrap: wrap;
-}
 
-.post {
-  width: calc(100% - 10px);
-  margin: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
-}
 
-.profile-picture {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-  float: left;
-  margin-right: 10px;
-}
+  .post .title {
+    margin-bottom: 5px;
+  }
 
-.profile-picture img {
-  width: 100%;
-}
+  .post .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
 
-a {
-  color: #007bff; /* Sets the link color to blue */
-  text-decoration: none; /* Removes the default underline */
-}
+  .post .actions a {
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 14px;
+  }
 
-a:hover {
-  text-decoration: underline; /* Underlines the link on hover */
-}
+  .post .actions a:hover {
+    background-color: #0069d9;
+  }
 
-.post .title {
-  margin-bottom: 5px;
-}
+  .post .actions .delete {
+    background-color: #dc3545;
+  }
 
-.post .actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-
-.post .actions a {
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 4px;
-  padding: 6px 12px;
-  margin-left: 10px;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.post .actions a:hover {
-  background-color: #0069d9;
-}
-
-.post .actions .delete {
-  background-color: #dc3545;
-}
-
-.post .actions .delete:hover {
-  background-color: #c82333;
-}
+  .post .actions .delete:hover {
+    background-color: #c82333;
+  }
 </style>
 
 <div class="post-container">
   <div class="post">
     <div class="profile-picture">
-      <img src="{{post.author.profile.image.url}}" alt="Profile Picture">
+      <img src="{{post.author.profile.image.url}}" alt="Profile Picture" />
     </div>
     <h2 class="title">{{ post.title }}</h2>
     {% if user == object.author %}
-      <div class="actions">
-        <a href="{% url 'update' object.id %}">Update</a>
-        <a href="{% url 'delete' object.id %}" class="delete">Delete</a>
-      </div>
+    <div class="actions">
+      <a href="{% url 'update' object.id %}">Update</a>
+      <a href="{% url 'delete' object.id %}" class="delete">Delete</a>
+    </div>
     {% endif %}
     <div class="meta">
       <div class="author">
-        <span class="author-icon">🧔</span> <b><a href="{% url 'user-post' post.author.username %}">{{ post.author }}</a></b>
+        <span class="author-icon">🧔</span>
+        <b
+          ><a href="{% url 'user-post' post.author.username %}"
+            >{{ post.author }}</a
+          ></b
+        >
       </div>
       <div class="date">{{ post.date }}</div>
+    </div>
+    <div style="position: relative; display: inline-block">
+      <img
+        src="{{post.post_image.url }}"
+        alt="Image description"
+        style="object-fit: cover; width: 600px; height: 300px"
+      />
+      <a
+        href="{{post.post_image.url}}"
+        class="expand-image"
+        onclick="expand()"
+        target="_blank"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 586.09999 586.09996"
+        >
+          <path
+            fill="rgb(0, 0, 255)"
+            d="M172.6 367.9l-97.7 97.7L0 390.7v195.4h195.4l-74.9-74.9 97.7-97.7-45.6-45.6zM195.4 0H0v195.4l74.9-74.9 97.7 97.7 45.6-45.6-97.7-97.7L195.4 0zm195.3 0l74.9 74.9-97.7 97.7 45.6 45.6 97.7-97.7 74.9 74.9V0H390.7zm22.8 367.9l-45.6 45.6 97.7 97.7-74.9 74.9h195.4V390.7l-74.9 74.9-97.7-97.7z"
+          />
+        </svg>
+      </a>
     </div>
     <div class="content">
       <p>{{ post.content }}</p>

@@ -6,22 +6,23 @@
   padding: 50px;
 }
 
-.profile-picture {
+
+
+.profile-picturez {
   width: 200px;
   height: 200px;
-  border-radius: 100%;
+  border-radius: 50%;
   overflow: hidden;
-  margin-bottom: 20px;
-  background-color: #ccc; /* optional background color */
+  float: left;
+  margin-right: 10px;
 }
 
-.profile-picture img {
+.profile-picturez img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 100%;
 }
+
+
+
 
 .profile-info {
   display: flex;
