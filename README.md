@@ -1,4 +1,5 @@
 My Social Network
+web_site_link : http://13.211.178.161/
 My Social Network is a web application that allows users to connect with friends, share updates, and explore content in a social media-like environment. It is built using Django, CSS, and JavaScript.
 
 Key Features
